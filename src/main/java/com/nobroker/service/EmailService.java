@@ -1,6 +1,5 @@
 package com.nobroker.service;
 
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import static com.nobroker.service.EmailVerificationService.emailOtpMapping;
 
 @Service
 @SuppressWarnings("unused")
@@ -26,11 +26,13 @@ public class EmailService {
     }
 
     public String generateOtp(){
-        return String.format("%06d",new java.util.Random().nextInt(1000000));
+        return String.format("%04d",new java.util.Random().nextInt(10000));
     }
 
     public Map<String,String>sendOtpEmail(String email){
         String otp=generateOtp();
+        emailOtpMapping.put(email,otp);
+
        sendEmail(email,"OTP for Email Verification","Your OTP is:" +otp);
        Map<String,String>response=new HashMap<>();
        response.put("status","success");
