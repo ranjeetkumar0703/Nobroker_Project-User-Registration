@@ -5,6 +5,8 @@ import com.nobroker.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     @Autowired
@@ -23,4 +25,10 @@ public class UserService {
         user.setEmailVerified(true);
         userRepository.save(user);
     }
+
+    public boolean isEmailVerified(String email) {
+        User user = userRepository.findByEmail(email);
+        return user != null && user.isEmailVerified();
+    }
+
 }

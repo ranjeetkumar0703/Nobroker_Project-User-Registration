@@ -1,5 +1,6 @@
 package com.nobroker.entity;
 
+import com.itextpdf.text.pdf.PdfPCell;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
